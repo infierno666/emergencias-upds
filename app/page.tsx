@@ -1,15 +1,18 @@
-// app/page.tsx
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-neutral-100 text-neutral-900">
-      <div className="border border-neutral-900 p-8 bg-white max-w-md w-full text-center">
-        <h1 className="text-2xl font-bold tracking-tighter mb-2">
-          SISTEMA DE EMERGENCIAS
-        </h1>
-        <p className="text-sm text-neutral-600">
-          Infraestructura base inicializada correctamente.
-        </p>
-      </div>
-    </main>
+    <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
+      <h1 className="text-3xl font-bold text-upds-text mb-4">
+        Bienvenido al Sistema de Emergencias
+      </h1>
+      <p className="text-upds-text-light mb-8 max-w-md">
+        Plataforma centralizada para el reporte y seguimiento de incidentes dentro del campus universitario.
+      </p>
+      <a
+        href="/login"
+        className="bg-upds-blue text-white font-bold py-3 px-6 rounded-md hover:bg-upds-blue-dark transition-colors shadow-md"
+      >
+        INGRESAR AL SISTEMA
+      </a>
+    </div>
   );
 }
