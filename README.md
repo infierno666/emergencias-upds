@@ -1,66 +1,196 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sistema Web de Gestión de Emergencias Universitarias
 
-## Getting Started
 
-First, run the development server:
+### Universidad Privada Domingo Savio (UPDS)
+
+Sistema para la gestión, seguimiento y monitoreo de incidentes en tiempo real dentro del campus universitario.
+
+
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge\&logo=nextdotjs\&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge\&logo=typescript\&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge\&logo=supabase\&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge\&logo=postgresql\&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge\&logo=tailwindcss\&logoColor=white)
+
+
+---
+
+## Descripción
+
+Este proyecto corresponde al Producto Mínimo Viable (MVP) desarrollado para la actividad **A5. Hackatón: Desarrollo y Debugging** de la Universidad Privada Domingo Savio.
+
+La plataforma centraliza el registro y seguimiento de incidentes dentro del campus universitario, permitiendo una gestión eficiente de emergencias mediante una interfaz web moderna y actualizaciones en tiempo real.
+
+---
+
+## Características
+
+### Autenticación
+
+* Registro de usuarios
+* Inicio de sesión seguro
+* Gestión de sesiones mediante Supabase Auth
+
+### Gestión de Incidentes
+
+* Registro de incidentes
+* Clasificación por tipo
+* Registro de ubicación
+* Descripción detallada del evento
+
+### Dashboard en Tiempo Real
+
+* Visualización inmediata de incidentes
+* Actualización automática mediante Supabase Realtime
+* Seguimiento del estado de atención
+
+### Gestión Operativa
+
+Estados disponibles:
+
+| Estado     |
+| ---------- |
+| Pendiente  |
+| En Proceso |
+| Resuelto   |
+
+### Roles del Sistema
+
+| Rol         | Funcionalidades                   |
+| ----------- | --------------------------------- |
+| Operador    | Registrar y visualizar incidentes |
+| Coordinador | Supervisar y actualizar estados   |
+
+---
+
+## Tecnologías Utilizadas
+
+| Tecnología         | Función                 |
+| ------------------ | ----------------------- |
+| Next.js App Router | Frontend y Backend      |
+| TypeScript         | Desarrollo tipado       |
+| Supabase           | Backend as a Service    |
+| PostgreSQL         | Base de datos           |
+| Supabase Realtime  | Actualizaciones en vivo |
+| Tailwind CSS       | Diseño de interfaz      |
+| Vercel             | Despliegue              |
+
+---
+
+## Arquitectura del Proyecto
+
+```bash
+emergencias-upds/
+│
+├── app/
+│   ├── dashboard/
+│   ├── login/
+│   ├── globals.css
+│   └── layout.tsx
+│
+├── components/
+│   ├── ui/
+│   └── incidentes/
+│
+├── actions/
+│   ├── auth.ts
+│   └── incidentes.ts
+│
+├── lib/
+│   └── supabase/
+│
+├── types/
+│   └── index.ts
+│
+├── .env.local
+│
+└── tailwind.config.ts
+```
+
+---
+
+## Instalación
+
+### Clonar repositorio
+
+```bash
+git clone https://github.com/infierno666/emergencias-upds.git
+
+cd emergencias-upds
+```
+
+### Instalar dependencias
+
+```bash
+npm install
+```
+
+
+### Ejecutar proyecto
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Acceder al sistema
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 ---
-bash 
-```
-emergencias-upds/
-├── app/                      # 🌐 RUTAS Y PÁGINAS (Frontend principal)
-│   ├── dashboard/            # Panel principal
-│   │   └── page.tsx          # Tablero de incidentes (Operador/Coordinador)
-│   ├── globals.css           # Estilos base (Escala de grises)
-│   ├── layout.tsx            # Estructura maestra de la web
-│   └── page.tsx              # Landing inicial o redirección
-│
-├── components/               # 🧩 COMPONENTES VISUALES (Client/Server Components)
-│   ├── ui/                   # Componentes genéricos (Botones, Inputs, Modales)
-│   └── incidentes/           # Componentes del dominio (Formulario, Tarjeta de emergencia)
-│
-├── actions/                  # ⚙️ LÓGICA DE SERVIDOR (Next.js Server Actions)
-│   └── incidentes.ts         # Funciones backend para insertar/actualizar en Supabase
-│
-├── lib/                      # 🛠️ CONFIGURACIONES Y UTILIDADES
-│   ├── supabase.ts           # El cliente de conexión que acabamos de crear
-│   └── utils.ts              # Funciones de ayuda (ej. formatear fechas)
-│
-├── types/                    # 🏷️ TIPADOS DE TYPESCRIPT
-│   └── index.ts              # Interfaces (ej. la estructura de la tabla 'incidentes')
-│
-├── .env.local                # 🔒 VARIABLES DE ENTORNO (Credenciales)
-├── tailwind.config.ts        # Configuración visual
-└── postcss.config.mjs
-```
+
+## Seguridad
+
+* Supabase Authentication
+* Row Level Security (RLS)
+* Control de acceso basado en roles
+* Variables de entorno protegidas
+
 ---
+
+## Estado del Proyecto
+
+| Módulo                 | Estado    |
+| ---------------------- | --------- |
+| Autenticación          | Completo  |
+| Registro de Incidentes | Completo  |
+| Dashboard              | Completo  |
+| Gestión de Estados     | Completo  |
+| Integración Supabase   | Completo  |
+| Notificaciones         | Pendiente |
+| Reportes               | Pendiente |
+| Geolocalización        | Pendiente |
+
+---
+
+## Equipo de Desarrollo
+
+| Integrante                | Responsabilidad                   |
+| ------------------------- | --------------------------------- |
+| Daniel Maldonado Cespedes | Frontend y Diseño UI/UX           |
+| Alisson Huayraña Caero    | QA e Integración de Autenticación |
+| Nicolas Barrancos Arze    | Backend e Integración             |
+| Isaias Recini Flores      | Base de Datos y Seguridad         |
+
+---
+
+## Contexto Académico
+
+**Universidad Privada Domingo Savio**
+
+Carrera de Ingeniería de Sistemas
+
+Gestión 2026
+
+Hackatón: Desarrollo y Debugging
+
+---
+
+
+Sistema Web de Gestión de Emergencias Universitarias
+
+UPDS · 2026
+
+
+
