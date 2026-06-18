@@ -1,36 +1,74 @@
-import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
-import { logout } from './actions'
+import Link from 'next/link'
+import { getIncidents } from '@/lib/supabase/queries'
 
 export default async function DashboardPage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
-
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('full_name, role')
-    .eq('id', user.id)
-    .single()
+  const incidents = await getIncidents()
 
   return (
-    <main className="min-h-screen bg-white px-6 py-10">
-      <div className="max-w-2xl mx-auto border border-black">
-        <div className="bg-[#13326a] px-6 py-3 flex items-center justify-between">
-          <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-white">
-            Sistema de Emergencias / Tablero
-          </p>
-          <form action={logout}>
-            <h1 className="text-xl font-bold mb-2 text-black">Bienvenido, {profile?.full_name ?? user.email}</h1>
-          </form>
-        </div>
-        <div className="px-6 py-8">
-          <h1 className="text-xl font-bold mb-2">Bienvenido, {profile?.full_name ?? user.email}</h1>
-          <p className="text-sm font-mono uppercase tracking-wider text-neutral-600">
-            Rol: {profile?.role ?? 'operador'}
-          </p>
-        </div>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center border-b border-black pb-4">
+        <h1 className="text-xl font-bold font-mono uppercase">
+          Tablero de Incidentes
+        </h1>
+        <Link
+          href="/dashboard/nuevo"
+          className="bg-[#13326a] text-white px-4 py-2 text-sm font-mono uppercase hover:bg-[#0f2754]"
+        >
+          + Nuevo Reporte
+        </Link>
       </div>
-    </main>
+
+      <div className="overflow-x-auto">
+        <table className="w-full text-left border-collapse border border-black text-sm">
+          <thead className="bg-neutral-100 font-mono text-xs uppercase">
+            <tr>
+              <th className="border border-black p-3">Estado</th>
+              <th className="border border-black p-3">Tipo</th>
+              <th className="border border-black p-3">Título</th>
+              <th className="border border-black p-3">Ubicación</th>
+              <th className="border border-black p-3">Responsable</th>
+              <th className="border border-black p-3 text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {incidents?.map((inc) => (
+              <tr key={inc.id} className="hover:bg-neutral-50">
+                <td className="border border-black p-3 font-mono text-xs uppercase">
+                  {inc.status}
+                </td>
+                <td className="border border-black p-3">
+                  {/* @ts-ignore - Evitamos error de tipado por el join de Supabase */}
+                  {inc.type?.name || 'N/A'}
+                </td>
+                <td className="border border-black p-3 font-medium">
+                  {inc.title}
+                </td>
+                <td className="border border-black p-3">{inc.location}</td>
+                <td className="border border-black p-3 text-neutral-600">
+                  {/* @ts-ignore */}
+                  {inc.assignee?.full_name || 'Sin asignar'}
+                </td>
+                <td className="border border-black p-3 text-center">
+                  <Link
+                    href={`/dashboard/incidente/${inc.id}`}
+                    className="underline text-[#13326a] font-mono text-xs"
+                  >
+                    Gestionar
+                  </Link>
+                </td>
+              </tr>
+            ))}
+
+            {(!incidents || incidents.length === 0) && (
+              <tr>
+                <td colSpan={6} className="border border-black p-6 text-center text-neutral-500 font-mono">
+                  No hay incidentes registrados actualmente.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
 }
