@@ -1,33 +1,27 @@
 @import "tailwindcss";
 
-@layer base {
-  body {
-    @apply bg-white text-black dark:bg-black dark:text-white antialiased;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+:root {
+  /* Paleta base de la UPDS online */
+  --upds-blue: #00458a;     
+  --upds-blue-dark: #002d5a;
+  --upds-light-bg: #f8f9fa; 
+  --upds-border: #e5e7eb;  
+  --upds-text: #333333;
+  --upds-text-light: #6b7280;
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+  body {
+    @apply antialiased;
+    background-color: var(--upds-light-bg);
+    color: var(--upds-text);
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  --color-upds-blue: var(--upds-blue);
+  --color-upds-blue-dark: var(--upds-blue-dark);
+  --color-upds-bg: var(--upds-light-bg);
+  --color-upds-border: var(--upds-border);
 }
