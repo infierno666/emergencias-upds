@@ -34,3 +34,33 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+bash 
+```
+emergencias-upds/
+├── app/                      # 🌐 RUTAS Y PÁGINAS (Frontend principal)
+│   ├── dashboard/            # Panel principal
+│   │   └── page.tsx          # Tablero de incidentes (Operador/Coordinador)
+│   ├── globals.css           # Estilos base (Escala de grises)
+│   ├── layout.tsx            # Estructura maestra de la web
+│   └── page.tsx              # Landing inicial o redirección
+│
+├── components/               # 🧩 COMPONENTES VISUALES (Client/Server Components)
+│   ├── ui/                   # Componentes genéricos (Botones, Inputs, Modales)
+│   └── incidentes/           # Componentes del dominio (Formulario, Tarjeta de emergencia)
+│
+├── actions/                  # ⚙️ LÓGICA DE SERVIDOR (Next.js Server Actions)
+│   └── incidentes.ts         # Funciones backend para insertar/actualizar en Supabase
+│
+├── lib/                      # 🛠️ CONFIGURACIONES Y UTILIDADES
+│   ├── supabase.ts           # El cliente de conexión que acabamos de crear
+│   └── utils.ts              # Funciones de ayuda (ej. formatear fechas)
+│
+├── types/                    # 🏷️ TIPADOS DE TYPESCRIPT
+│   └── index.ts              # Interfaces (ej. la estructura de la tabla 'incidentes')
+│
+├── .env.local                # 🔒 VARIABLES DE ENTORNO (Credenciales)
+├── tailwind.config.ts        # Configuración visual
+└── postcss.config.mjs
+```
+---
