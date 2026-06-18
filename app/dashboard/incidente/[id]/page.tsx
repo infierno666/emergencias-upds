@@ -18,6 +18,7 @@ export default async function DetalleIncidentePage({
 
   const isCoordinador = profile?.role === 'coordinador'
 
+  // Si es coordinador, necesitamos traer la lista de perfiles para asignar
   let perfiles: any[] = []
   if (isCoordinador) {
     const supabase = await createClient()
@@ -36,6 +37,7 @@ export default async function DetalleIncidentePage({
         </Link>
       </div>
 
+      {/* Tarjeta de Información (Solo Lectura para operadores) */}
       <div className="border border-black p-6 space-y-4 bg-neutral-50">
         <div className="grid grid-cols-2 gap-4 border-b border-black pb-4">
           <div>
@@ -69,6 +71,7 @@ export default async function DetalleIncidentePage({
         </div>
       </div>
 
+      {/* Panel de Gestión (Solo visible para Coordinadores) */}
       {isCoordinador && (
         <form action={updateIncident} className="border border-[#13326a] p-6 space-y-5">
           <h2 className="font-mono uppercase font-bold text-[#13326a]">Panel de Coordinación</h2>
